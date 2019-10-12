@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "400681158352",
+    "firebase_url": "https://shuttlecabtracker.firebaseio.com",
+    "project_id": "shuttlecabtracker",
+    "storage_bucket": "shuttlecabtracker.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:400681158352:android:28795f7f889d4ee3f380d5",
+        "android_client_info": {
+          "package_name": "com.example.driverapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "400681158352-j1g9isrampdt6b3r510dg5a5bctevmkl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBYElfLQe0X7Z6N0GJFAxD-SiKgUJPkDBs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "400681158352-j1g9isrampdt6b3r510dg5a5bctevmkl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
