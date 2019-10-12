@@ -58,6 +58,7 @@
 
     <Button
         android:id="@+id/button_changespace"
+        style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="319dp"
         android:layout_height="163dp"
         android:layout_below="@+id/button_minus"
@@ -70,6 +71,7 @@
         android:layout_marginTop="106dp"
         android:layout_marginEnd="47dp"
         android:layout_marginRight="47dp"
+        android:background="@color/colorAccent"
         android:onClick="changeSpace"
         android:text="VACANT" />
 

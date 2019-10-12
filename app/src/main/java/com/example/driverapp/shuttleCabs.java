@@ -5,17 +5,18 @@ public class shuttleCabs {
     double cabx;
     double caby;
     int cabpax;
-    
+    int full;
 
     public  shuttleCabs(){
 
     }
 
-    public shuttleCabs(String cabID, double cabx, double caby, int cabpax) {
+    public shuttleCabs(String cabID, double cabx, double caby, int cabpax, int full) {
         this.cabID = cabID;
         this.cabx = cabx;
         this.caby = caby;
         this.cabpax = cabpax;
+        this.full = full;
     }
 
     public String getCabID() {
@@ -26,6 +27,9 @@ public class shuttleCabs {
         return cabx;
     }
 
+    public int getFull(){
+        return full;
+    }
     public double getCaby() {
         return caby;
     }

@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Location;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -32,6 +33,7 @@ import java.util.*;
 public class MainActivity extends AppCompatActivity {
     int count;
     TextView cv;
+    int full;
     String id;
     Location publicLocation = new Location("dummy");
     private FusedLocationProviderClient fusedLocationClient;
@@ -60,6 +62,36 @@ public class MainActivity extends AppCompatActivity {
                 handler.postDelayed(this, delay);
             }
         }, delay);
+        /*FirebaseDatabase.getInstance().getReference()
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+
+                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                            shuttleCabs shuttleCab = snapshot.getValue(shuttleCabs.class);
+                            LatLng shuttle = new LatLng(shuttleCab.getCabx(),shuttleCab.getCaby() );
+                            if (shuttleCab.getCabpax()>=13) continue;
+                            else cabLocs.add(shuttle);
+                        }
+                        closestCab = findClosest(cabLocs);
+                        map.addMarker(new MarkerOptions().position(closestCab).title("Closest Shuttle"));
+                        LatLng publicLatLng = new LatLng(publicLocation.getLatitude(),publicLocation.getLongitude());
+                        String url = getDirectionsUrl(publicLatLng,closestCab);
+                        new FetchURL(MapActivity.this   ).execute(url, "driving");
+
+                        Location dest = new Location("dummy");
+                        dest.setLatitude(closestCab.latitude);
+                        dest.setLongitude(closestCab.longitude);
+                        String timeleft = "Nearest cab ETA: " + Integer.toString((int)publicLocation.distanceTo(dest)/300)+ " minutes";
+                        timeLeft.setText(timeleft);
+
+                        Toast.makeText(MapActivity.this, "Got till here", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                    }
+                }*/
     }
 
 //    @Override
@@ -80,6 +112,20 @@ public class MainActivity extends AppCompatActivity {
 //            }
 //        });
 //    }
+    public void swap(){
+        final Button changeSpace = (Button) findViewById(R.id.button_changespace);
+        if (full==0){
+            full = 1;
+            changeSpace.setText("FULL");
+            changeSpace.setBackgroundColor(Color.RED);
+        }
+        else{
+            full = 0;
+            changeSpace.setText("VACANT");
+            changeSpace.setBackgroundColor(Color.GREEN);
+        }
+    }
+
 
     public void updateLocation(){
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
@@ -109,17 +155,18 @@ public class MainActivity extends AppCompatActivity {
         }
         double x = publicLocation.getLatitude();
         double y = publicLocation.getLongitude();
-        shuttleCabs shuttleCab = new shuttleCabs(id,x,y,count);
+        shuttleCabs shuttleCab = new shuttleCabs(id,x,y,count, full);
         shuttledb.child(id).setValue(shuttleCab);
         Toast.makeText(this, "Record updated", Toast.LENGTH_SHORT).show();
     }
 
-    public void add(View vie){
+    public void add(View view){
         count++;
         cv.setText(""+count);
         sendLocation();
     }
-    public void reduce(View vie){
+
+    public void reduce(View view){
         if (count > 0){
             count--;
             cv.setText(""+count);
@@ -127,9 +174,12 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
-    public void changeSpace(View vie){
-        Toast.makeText(this, "Works till here!!!", Toast.LENGTH_SHORT).show();
+
+    public void changeSpace(View view){
+        //Toast.makeText(this, "Works till here!!!", Toast.LENGTH_SHORT).show();
+        swap();
     }
+
     public void update(View view){
         updateLocation();
         sendLocation();
